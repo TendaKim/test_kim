@@ -2,85 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAdminRequest;
-use App\Http\Requests\UpdateAdminRequest;
-use App\Models\Admin;
-use Illuminate\Support\Facades\DB;
-
+use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
+
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the user's profile form.
      */
-    public function index()
-    {
-        //
-    }
+    // public function edit(Request $request): View
+    // {
+    //     return view('profile.edit', [
+    //         'user' => $request->user(),
+    //     ]);
+    // }
 
     /**
-     * Show the form for creating a new resource.
+     * 　ユーザーの情報の表示
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreAdminRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateAdminRequest $request, Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Admin $admin)
-    {
-        //
-    }
-
-    public function showUsers()
+    public function show_user(): View
     {
         $users = DB::select("select * from users");
-        return view('admin_page', compact('users')); 
+        return view('admin_page', compact('users'));
     }
 
-    public function maker(Request $request)
-    {
-        $validatedData = $request->validate([
-            'hihi' => 'required|string', // Example validation rule
-        ]);
-
-        $what_i = $validatedData['hihi'];
-
-        return view('admin_maker', compact('what_i'));  // Pass data to view
-    }
+    // public function destroy(User $user)
+    // {
+    //     $user->delete();
+    //     return redirect()->route('users.index')->with('status', 'User deleted successfully!');
+    // }
 }

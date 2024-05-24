@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admins', function (Blueprint $table) {
-            $table->id();
-            $table->string('admin_name');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('ban_user')->default(false); // Replace 'new_column_name' with your desired column name and data type (e.g., 'integer', 'text', etc.)
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admins');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,5 +29,9 @@ Route::get('language/{locale}', function ($locale) {
     return redirect()->back();
 });
 
-Route::get('/admin_page', [AdminController::class, 'showUsers']);
-Route::post('/admin_maker', [AdminController::class, 'maker']);
+
+// 管理者のページ
+Route::get('/admin_page',[AdminController::class,'show_user'])->name('admin_page');
+Route::post('/users/{user}/ban', [UserController::class, 'ban'])->name('users.ban');
+Route::post('/users/{user}/banban', [UserController::class, 'banban'])->name('users.banban');
+
