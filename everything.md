@@ -35,6 +35,63 @@ public function up(): void
 sail php artisan migrate
 ```
 
+### ＋データのquery
+
+```php
+// routes/web.php
+
+// For DB setting
+use Illuminate\Support\Facades\DB;
+
+Route::get('/', function () {
+    // return view('welcome');
+
+    // fetch all users
+    $users = DB::select("select * from users");
+    print_r($users);
+
+    $users = DB::select("select * from users where email=?", ["tenda@gmail.com"]);
+    print_r($users);
+
+    // insert
+    $user = DB::insert('insert into usert (name, email, password) values (?,?,?)',
+    [
+        'hk',
+        'hk@gmail.com',
+        'password',
+    ]);
+    print_r($user);
+
+    // get users data from users table
+    $users = DB::table('users')->get();
+    return $users;
+
+    // get users data wher id = 1 from users table
+    $users = DB::table('users')->where('id',1)->get();
+    return $users;
+
+    // create user
+    $user = DB::table('users')->insert(
+        'name' => 'sara',
+        'email' => 'dslafj@gamail.com'.
+    );
+
+    // change user
+    $user = DB::table('users')->where('id',5)->update(['email' => 'adf@gmail.com']);
+
+    // foreach version
+    DB::table('users')->where('active', false)
+        ->checkById(100, function(Collection $users) {
+            foreach($users as $user){
+                DB::table('users')
+                    ->where('id', $user->id)
+                    ->update(['active' => true]);
+            }
+        });
+});
+```
+
+
 ## 管理者のページの生成
 
 ### Route で管理者のページの経路の指定
