@@ -112,7 +112,7 @@ Route::middleware('auth')->group(function () {
 });
 ```
 
-###　その Route に合わせてユーザーに見せてあげるビューの作成
+### その Route に合わせてユーザーに見せてあげるビューの作成
 
 ```
 // resources/views/[admin_page.blade.php]
